@@ -1,3 +1,18 @@
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def landing():
+    return render_template("landing.html")  # Show landing page first
+
+@app.route("/home")
+def home():
+    return render_template("index.html")  # Main Food Timer app
+
+if __name__ == "__main__":
+    app.run(debug=True)
 from flask import Flask, app,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
@@ -40,3 +55,4 @@ def delete_food(id):
 
 if __name__=="__main__":
     app.run(debug=True)
+
