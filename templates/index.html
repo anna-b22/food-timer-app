@@ -3,47 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Timer App</title>
-</head>
-<body>
-    <h1>Food Timer App</h1>
-    <p>Here you can add foods and set timers!</p>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Timer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Food Cooking Timer</h1>
-    
-    <!-- Form to Add Food -->
-    <form action="/" method="POST">
-        <input type="text" name="name" placeholder="Enter food name" required>
-        <input type="number" name="cooking_time" placeholder="Cooking time (min)" required>
-        <button type="submit">Add Food</button>
-    </form>
-
-    <!-- Display List of Foods -->
-    <h2>Saved Foods</h2>
-    <ul>
-        {% for food in foods %}
-            <li>
-                {{ food.name }} - {{ food.cooking_time }} min 
-                <button onclick="startTimer({{ food.cooking_time }})">Start Timer</button>
-                <a href="/delete/{{ food.id }}">❌</a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <!-- Timer Display -->
-    <h2>Timer: <span id="timer">00:00</span></h2>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <div class="container">
+        <img src="{{ url_for('static', filename='images/anytime.jpg') }}" alt="Any-Time(R) Image" class="background-image">
+        <a href="{{ url_for('manage_foods') }}" class="start-button">Start</a>
+    </div>
 </body>
 </html>
-
