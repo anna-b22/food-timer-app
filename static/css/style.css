@@ -1,4 +1,4 @@
-body {
+/*body {
     margin: 0;
     padding: 0;
     display: flex;
@@ -44,4 +44,79 @@ body {
 
 .start-button:hover {
     background-color: darkorange;
+} */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    background-image: url('static/bj.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
 }
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+@media screen and (max-width: 1024px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        background-size: contain;
+        background-attachment: scroll;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        background-size: cover;
+        background-position: top;
+    }
+}
+
+.start-button {
+    position: relative;
+    top: 250px;
+    left: 100px;
+    background-color: orange;
+    padding: 15px 30px;
+    font-size: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    color: brown;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    transition: 0.3s ease-in-out;
+}
+
+.start-button:hover {
+    background-color: darkorange;
+}
+
