@@ -1,0 +1,165 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Cooking Timer</title>
+</head>
+<body>
+    <h1>Enter Food and Set Timer</h1>
+    <form method="POST">
+        <label for="food_name">Food Name:</label>
+        <input type="text" id="food_name" name="food_name" required>
+        <br>
+        <label for="cooking_time">Cooking Time (in minutes):</label>
+        <input type="number" id="cooking_time" name="cooking_time" required>
+        <br><br>
+        <button type="submit">Start Timer</button>
+    </form>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Cooking Timer</title>
+    <style>     
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            background-image: url('/static/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            flex-direction: column;
+            overflow: auto;
+        }
+        
+        .form-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        input {
+            padding: 8px;
+            width: 200px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #be4830;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #cd7bb8;
+        }
+
+        .recipe-container {
+            text-align: left;
+            max-width: 700px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: none;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        
+        .back-button {
+            display: block;
+            margin-top: 10px;
+            background-color: #333;
+        }
+    </style>
+</head>   
+<body>
+    <div id="mainContent">
+        <div class="form-container">
+            <h2>Set a Cooking Timer</h2>
+            <form method="POST">
+                <label for="food_name">Enter Food Name:</label>
+                <input type="text" id="food_name" name="food_name" required>
+                <br>
+                <label for="cooking_time">Cooking Time (in minutes):</label>
+                <input type="number" id="cooking_time" name="cooking_time" required>
+                <br><br>
+                <button type="submit">Start Timer</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Need a Recipe?</h2>
+            <button onclick="fetchRecipe()">Get Recipe</button>
+        </div>
+    </div>
+
+    <div id="recipeContainer" class="recipe-container">
+        <p id="recipeText"></p>
+        <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        async function fetchRecipe() {
+            const dish = document.getElementById("food_name").value;
+            if (!dish) {
+                alert("Please enter a dish name.");
+                return;
+            }
+            
+            document.getElementById("mainContent").style.display = "none";
+            document.getElementById("recipeContainer").style.display = "block";
+            document.getElementById("recipeText").innerText = "Fetching recipe...";
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            
+            try {
+                const response = await fetch("/get_recipe", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ dish })
+                });
+                const data = await response.json();
+                document.getElementById("recipeText").innerText = data.recipe || "No recipe found.";
+            } catch (error) {
+                document.getElementById("recipeText").innerText = "Error fetching recipe.";
+            }
+        }
+
+        function goBack() {
+            document.getElementById("recipeContainer").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
+
