@@ -10,7 +10,7 @@ chat_completion = client.chat.completions.create(
     messages=[
         {
             "role": "system",
-            "content": f"Give me the recipe for {dish}",
+            "content": f"Give me the recipe in 10 sentences or less for {dish}",
         }
     ],
     model="llama-3.3-70b-versatile",
