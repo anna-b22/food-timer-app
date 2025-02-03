@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timer</title>
     <style>
-        /* Centering content */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             height: 100vh;
-            font-family:Optima, sans-serif;
+            font-family: Optima, sans-serif;
             background-image: url('static/bj.jpg');
             background-repeat: no-repeat;
             background-position: center center;
@@ -39,40 +38,84 @@
             font-size: 24px;
             font-weight: bold;
         }
+        
+        /* Toggle sound button */
+        button#toggleSound {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        button#toggleSound:hover {
+            background-color: #e68900;
+        }
     </style>
+</head>
+<body>
+    <button id="toggleSound">🔊 Enable Sound</button>
+    
+    <div class="container">
+        <h1>Cooking Timer for {{ food_name }}</h1>
+        <p>Your timer is running:</p>
+        <div id="timer">Loading...</div>
+    </div>
+
+    <audio id="alarmSound">
+        <source src="{{ url_for('static', filename='alarm.mp3') }}" type="audio/mpeg">
+    </audio>
+
     <script>
+        const alarmSound = document.getElementById("alarmSound");
+        const soundButton = document.getElementById("toggleSound");
+
+        // Mute audio by default
+        alarmSound.muted = true;
+
+        // Enable sound when the user clicks the button
+        soundButton.addEventListener("click", function() {
+            if (alarmSound.muted) {
+                alarmSound.muted = false;
+                soundButton.innerHTML = "🔇 Mute Sound";
+            } else {
+                alarmSound.muted = true;
+                soundButton.innerHTML = "🔊 Enable Sound";
+            }
+        });
+
         function startTimer(minutes, foodName) {
-            var time = minutes * 60; // Convert minutes to seconds
+            var time = minutes * 60;
             var countdown = setInterval(function() {
                 if (time < 0) {
                     clearInterval(countdown);
                     document.getElementById('timer').innerHTML = "⏰ Time's up! Your " + foodName + " is ready!";
+                    
+                    if (!alarmSound.muted) {
+                        alarmSound.play();
+                    }
                     return;
                 }
+
                 var minutesLeft = Math.floor(time / 60);
                 var secondsLeft = time % 60;
-                
-                // Add leading zero if seconds < 10
                 secondsLeft = secondsLeft < 10 ? "0" + secondsLeft : secondsLeft;
-
-                // Update the timer display
                 document.getElementById('timer').innerHTML = minutesLeft + "m " + secondsLeft + "s";
                 time--;
             }, 1000);
         }
 
         window.onload = function() {
-            var cookingTime = JSON.parse('{{ cooking_time|tojson }}'); // Ensure safe rendering
+            var cookingTime = JSON.parse('{{ cooking_time|tojson }}');
             var foodName = JSON.parse('{{ food_name|tojson }}'); 
             startTimer(cookingTime, foodName);
-        }
+        };
     </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Cooking Timer for {{ food_name }}</h1>
-        <p>Your timer is running:</p>
-        <div id="timer">Loading...</div>
-    </div>
 </body>
 </html>
+
