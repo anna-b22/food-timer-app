@@ -55,3 +55,6 @@ Team contributions
 Girisha S Raj: Design 
 Anna Benoy: Python Code
 Annmaria Jones: HTML code
+
+We deployed our site on render and the link is given below:
+https://any-time-r-zoty.onrender.com/
