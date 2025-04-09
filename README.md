@@ -1,10 +1,11 @@
 ANY TIME(R)
 ANY TIME(R) is a website designed to allow its users to set timer for specific food and get any recipes according to their needs.
-Team Name: GIRI
+Group no.:6 
 Team Members:
-●MEMBER 1:Annmaria Jones--Muthoot Institute of Technology and Science, Puthencruz
-●MEMBER 2:Girisha S Raj-Muthoot Institute of Technology and Science, Puthencruz
-●MEMBER 3:Anna Benoy-Muthoot Institute of Technology and Science, Puthencruz
+● Arunima Nithin Nair
+● Anna Benoy
+● Girisha S Raj
+● Gayathri S Menon
 
 Hosted Project Link
 
